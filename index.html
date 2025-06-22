@@ -24,7 +24,12 @@
             .text {
                 font-family: 'Press Start 2P';
                 color: white;
-                font-size: clamp(16px, 2vw, 48px);;
+                font-size: clump(16px, 4vw, 48px);
+                line-height: 1.4;
+                text-align: center;
+                white-space: normal;      /* ✅ อนุญาตให้ขึ้นบรรทัดใหม่ */
+                word-break: break-word;   /* ✅ ถ้าไม่มีช่องว่าง ให้ตัดคำ */
+                padding: 0 10px;
                 
             }
             .next {
