@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>surprise kub</title>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+
+    
+        <style>
+            body {
+                background-color: pink;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+
+            }
+            
+            .text {
+                font-family: 'Press Start 2P';
+                color: white;
+                font-size: clamp(16px, 2vw, 20px);;
+                
+            }
+            .next {
+                font-family: 'Fredoka';
+                font-size: 20px;
+                background-color: white;
+                color: pink;
+                margin-top: 20px;
+                border: 2px solid white;
+                border-radius: 10px;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: 0.5s;
+            }
+            .next:hover {
+                background-color: lightpink;
+                color: white;
+                border: 2px solid pink;
+
+            }
+            .main {
+                text-align: center;
+            }
+            
+            #text {
+                display: inline-block;
+
+                min-height: 3em;
+                line-height: 1.2;
+                display: inline-block;
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+            .blinking-cursor::after {
+                content: '|';           /* ตัวแทนเคอร์เซอร์ */
+                animation: blink 1s steps(2, start) infinite;
+                color: white;
+                margin-left: 2px;
+            }
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                50.01%, 100% { opacity: 0; }
+            }
+
+        </style>
+    </head>
+    <body>    
+        <div class="main">
+            <div><p class="text" id="text">Happy anniversary na kub</p></div>
+            <div><button class="next" id="btn">next</button></div>
+        </div>
+        
+    </body>
+    <script>
+        const message = document.getElementById('text');
+        const button = document.getElementById('btn');
+
+        const messages = [
+            "Happy anniversary na kub",
+            "Thank you for being with me na",
+            "love you everyday laei na",
+            "together forever na",
+            "jub jub"
+
+
+        ];
+
+        let index = 0;
+
+        button.addEventListener('click', () => {
+            if (index < messages.length - 1) {
+                deleteText(() => {
+                    index++;
+                    typeText(messages[index]);
+                });   
+            } else {
+                window.location.href = 'clock.html';
+            }
+            
+            
+        });
+
+        
+        function deleteText(callback) {
+            message.classList.add('blinking-cursor');
+            const current = message.textContent;
+            let i = current.length;
+
+            const deleter = setInterval(() => {
+            if (i > 0) {
+                message.textContent = current.substring(0, i - 1);
+                i--;
+            } else {
+                clearInterval(deleter);
+                callback(); // เรียกต่อเมื่อลบเสร็จ
+                message.classList.remove('blinking-cursor');
+            }
+            }, 70); // ปรับความเร็วลบได้
+        }
+
+        
+        function typeText(newText) {
+            message.classList.add('blinking-cursor');
+            let i = 0
+            const typer = setInterval(() => {
+                if (i <= newText.length) {
+                    message.textContent = newText.substring(0, i);
+                    i++;
+                } else {
+                    clearInterval(typer);
+                    setTimeout(() => {
+                        message.classList.remove('blinking-cursor');
+                    }, 800);
+                    
+                }
+            }, 70);
+        }
+    </script>
+</html>

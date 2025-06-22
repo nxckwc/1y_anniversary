@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Our Love Clock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            background-color: pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Press Start 2P', monospace;
+            color: white;
+            flex-direction: column;
+            text-align: center;
+        }
+        #clock {
+            font-size: clamp(20px, 6vw, 48px);
+            background: rgba(255 255 255 / 0.2);
+            border-radius: 20px;
+            padding: 20px 40px;
+            box-shadow: 0 0 15px rgba(255 192 203, 0.7);
+            user-select: none;
+        }
+        .head {
+            margin-bottom: 20px;
+            font-size: clamp(12px, 3vw, 20px);
+            color: #ffe6f0;
+        }
+        .bot {
+            margin-top: 20px;
+            font-size: clamp(12px, 3vw, 20px);
+            color: #ffe6f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="head">luv counter</div>
+    <div id="clock">00:00:00:00</div>
+    <div class="bot">luv u 3000</div>
+
+    <script>
+        const clock = document.getElementById('clock');
+
+        // ตั้งวันที่เริ่มคบ (ปรับตามจริง)
+        const startDate = new Date('2024-06-22T00:00:00');
+
+        function updateClock() {
+            const now = new Date();
+            let diff = now - startDate;
+
+            // คำนวณวัน ชั่วโมง นาที วินาที
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            diff -= days * (1000 * 60 * 60 * 24);
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            diff -= hours * (1000 * 60 * 60);
+
+            const minutes = Math.floor(diff / (1000 * 60));
+            diff -= minutes * (1000 * 60);
+
+            const seconds = Math.floor(diff / 1000);
+
+            // ฟอร์แมตเลขให้มี 2 หลัก
+            const pad = (n) => n.toString().padStart(2, '0');
+
+            clock.textContent = `${pad(days)} ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
